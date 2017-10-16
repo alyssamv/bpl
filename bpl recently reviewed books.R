@@ -3,10 +3,7 @@ library(stringr)
 library(RCurl)
 library(plyr); library(dplyr)
 
-### establish url
-#url.bpl <- 'https://bpl.bibliocommons.com/'
 
-### get HTML
 get.books <- function(url.bpl = 'https://bpl.bibliocommons.com/'){
   trial.run <- lapply(url.bpl, function(x){
     RCurl::getURL(x, ssl.verifypeer = FALSE);(Sys.sleep(4));RCurl::getURL(x, ssl.verifypeer = FALSE)
@@ -31,9 +28,10 @@ get.books <- function(url.bpl = 'https://bpl.bibliocommons.com/'){
     return(c(title,author))
   })
   
-  ###make dataframe
+  ### make dataframe
   tt <- as.data.frame(do.call('rbind', title.author)) %>% unique
   colnames(tt) <- c('Title','Author')
   (tt)
 }
-View(get.books())
+
+get.books()
